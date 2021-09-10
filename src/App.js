@@ -1,14 +1,17 @@
 import React from 'react';
+import { useGetUsersQuery } from './redux/usersApi';
 
 function App() {
-  return (
-    <div className="">
-      <header className="">
-    <h1>Hello World</h1>
-    <input class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" type="email" placeholder="jane@example.com"></input>
-      </header>
-    </div>
-  );
+
+  const {data, isLoading, isSuccess, isError} = useGetUsersQuery()
+	return (
+		<div className="">
+			<header className="">
+        {isLoading && 'Loading...'}
+				<h1>Hello World</h1>
+			</header>
+		</div>
+	);
 }
 
 export default App;
