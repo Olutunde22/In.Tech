@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Signup = () => {
+const Landing = () => {
 	return (
 		<div className="">
             Olutunde 2021
@@ -8,4 +8,4 @@ const Signup = () => {
 	);
 }
 
-export default Signup;
+export default Landing;
