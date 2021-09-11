@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetUsersQuery } from './redux/usersApi';
+import {useGetUsersQuery} from '../../redux/usersApi.js'
 
 const Header = () => {
 
@@ -7,7 +7,6 @@ const Header = () => {
 	return (
 		<div className="">
 			<header className="">
-        {isLoading && 'Loading...'}
 				<h1>Hello World</h1>
 			</header>
 		</div>

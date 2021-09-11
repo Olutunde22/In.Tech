@@ -2,10 +2,9 @@ import React from 'react';
 
 const Home = () => {
 	return (
-		<div className="">
-            Olutunde 2021
-		</div>
+			<div className="">hiii this wont show yet</div>
+
 	);
-}
+};
 
 export default Home;
