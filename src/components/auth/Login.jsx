@@ -1,7 +1,9 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage as div } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../shared/Layout';
+import { loginFields } from './formFields';
+import Alert from '../shared/Alert';
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().email('Invalid Email').required('Required'),
@@ -9,18 +11,25 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+	const [error, setError] = useState('');
+
 	const handleLogin = async ({ email, password }, { setSubmitting }) => {
-		setTimeout(() => {
-			setSubmitting(true);
-		}, 300);
+		try {
+			setTimeout(() => {
+				setError('Error');
+				setSubmitting(true);
+			}, 300);
+		} catch (err) {
+			setError(err);
+		}
 	};
 
 	return (
 		<Layout>
 			<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-				<div className="max-w-md w-full space-y-8 px-12 bg-white py-8 shadow-lg rounded-lg">
+				<div className="max-w-md w-full space-y-8 px-12 bg-white py-8 shadow-lg rounded-xl">
 					<div>
-						<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+						<h2 className="mt-6 text-center text-xl sm:text-3xl font-extrabold text-gray-900">
 							Sign in to your account
 						</h2>
 						<p className="mt-2 text-center text-sm text-gray-600">
@@ -40,42 +49,26 @@ const Login = () => {
 					>
 						{({ isSubmitting, errors, touched }) => (
 							<Form>
-								<div className="my-5">
-									<label htmlFor="email" className="text-gray-500 font-normal">
-										Email address
-									</label>
-									<Field
-										id="email"
-										name="email"
-										type="email"
-										autoComplete="email"
-										className={`relative block w-full px-3 py-3 border ${
-											errors.email && touched.email ? 'border-red-500' : 'border-gray-300'
-										}   placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-sm`}
-										placeholder="Email address"
-									/>
-									{errors.email && touched.email ? (
-										<div className="text-red-500">{errors.email}</div>
-									) : null}
-								</div>
-								<div>
-									<label htmlFor="password" className="text-gray-500 font-normal">
-										Password
-									</label>
-									<Field
-										id="password"
-										name="password"
-										type="password"
-										autoComplete="current-password"
-										className={`shadow-sm relative block w-full px-3 py-3 border ${
-											errors.password && touched.password ? 'border-red-500' : 'border-gray-300'
-										} placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
-										placeholder="Password"
-									/>
-									{errors.password && touched.password ? (
-										<div className="text-red-500">{errors.password}</div>
-									) : null}
-								</div>
+								{error ? <Alert type="error" message={error} /> : null}
+								{loginFields.map((field) => (
+									<div className="my-2" key={field.id}>
+										<label htmlFor={field.name} className="text-gray-500 font-normal">
+											{field.label}
+										</label>
+										<Field
+											id={field.name}
+											name={field.name}
+											type={field.name}
+											className={`relative block w-full px-3 py-3 border ${
+												errors[field.name] && touched[field.name]
+													? 'border-red-500'
+													: 'border-gray-300'
+											}   placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-sm`}
+											placeholder={field.label}
+										/>
+										<ErrorMessage className="text-red-500" component="div" name={field.name} />
+									</div>
+								))}
 
 								<div className="flex items-center justify-between my-4">
 									<div className="text-sm">
