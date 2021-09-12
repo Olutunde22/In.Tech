@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Layout from '../shared/Layout';
 import { loginFields } from './formFields';
 import Alert from '../shared/Alert';
+import { useLoginMutation } from '../../redux/auth/authApi';
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().email('Invalid Email').required('Required'),
@@ -12,15 +13,17 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
 	const [error, setError] = useState('');
+	const [login] = useLoginMutation();
 
 	const handleLogin = async ({ email, password }, { setSubmitting }) => {
 		try {
-			setTimeout(() => {
-				setError('Error');
-				setSubmitting(true);
-			}, 300);
+			setSubmitting(true);
+			await login({
+				email,
+				password,
+			}).unwrap();
 		} catch (err) {
-			setError(err);
+			setError(err.data.error);
 		}
 	};
 

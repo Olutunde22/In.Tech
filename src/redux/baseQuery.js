@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = process.env.BASE_QUERY_URL + 'api/';
+const baseUrl = 'https://reqs.in/api/';
 
 const axiosBaseQuery = () => async (req, api) => {
 	try {
@@ -15,7 +15,7 @@ const axiosBaseQuery = () => async (req, api) => {
 	} catch (axiosError) {
 		const err = axiosError;
 		return {
-			error: { status: err.response.data.error, data: err.response.data },
+			error: { status: err.response.status, data: err.response.data },
 		};
 	}
 };

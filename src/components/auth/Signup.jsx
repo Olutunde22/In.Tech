@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Layout from '../shared/Layout';
 import Alert from '../shared/Alert';
 import { signupFields } from './formFields';
+import { useSignUpMutation } from '../../redux/auth/authApi';
 
 const SignupSchema = Yup.object().shape({
 	firstname: Yup.string().required('Required'),
@@ -14,15 +15,16 @@ const SignupSchema = Yup.object().shape({
 
 const Signup = () => {
 	const [error, setError] = useState('');
+	const [signup] = useSignUpMutation();
 
 	const handleSignup = async (values, { setSubmitting }) => {
 		try {
-			setTimeout(() => {
-				setError('Error');
-				setSubmitting(true);
-			}, 300);
+			setSubmitting(true);
+			await signup({
+				...values,
+			}).unwrap();
 		} catch (err) {
-			setError(err);
+			setError(err.data.error);
 		}
 	};
 
