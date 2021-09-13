@@ -4,7 +4,7 @@ import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/solid';
 const Alert = ({ type, message }) => {
 	return (
 		<div
-			className={` flex ${
+			className={` transform motion-safe:hover:scale-110 flex ${
 				type === 'error' ? 'text-red-700 bg-red-100' : 'text-green-700 bg-green-100'
 			} rounded  px-4 py-3 relative`}
 			role="alert"

@@ -7,10 +7,10 @@ import { signupFields } from './formFields';
 import { useSignUpMutation } from '../../redux/auth/authApi';
 
 const SignupSchema = Yup.object().shape({
-	firstname: Yup.string().required('Required'),
-	lastname: Yup.string().required('Required'),
-	email: Yup.string().email('Invalid Email').required('Required'),
-	password: Yup.string().min(6, 'Password too short').required('Required'),
+	firstname: Yup.string().required('Firstname is Required'),
+	lastname: Yup.string().required('Lastname is Required'),
+	email: Yup.string().email('Invalid Email').required('Email is Required'),
+	password: Yup.string().min(6, 'Password is too short').required('Password is Required'),
 });
 
 const Signup = () => {
@@ -64,11 +64,12 @@ const Signup = () => {
 											id={field.name}
 											name={field.name}
 											type={field.name}
+											autoComplete={field.name === 'password' ? 'current-password' : field.name}
 											className={`relative block w-full px-3 py-3 border ${
 												errors[field.name] && touched[field.name]
-													? 'border-red-500'
-													: 'border-gray-300'
-											}   placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-sm`}
+													? 'border-red-300 placeholder-red-500 focus:ring-red-500 focus:border-red-500'
+													: 'border-gray-300 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500'
+											} text-gray-900 rounded-lg focus:outline-none focus:z-10 sm:text-sm shadow-sm`}
 											placeholder={field.label}
 										/>
 										<ErrorMessage className="text-red-500" component="div" name={field.name} />
