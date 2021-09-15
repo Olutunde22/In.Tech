@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 const baseUrl = 'https://reqs.in/api/';
 
-const axiosBaseQuery = () => async (req, api) => {
+const axiosBaseQuery = () => async (req: AxiosRequestConfig) => {
 	try {
 		const result = await axios({
 			...req,
@@ -13,11 +13,12 @@ const axiosBaseQuery = () => async (req, api) => {
 		});
 		return { data: result.data };
 	} catch (axiosError) {
-		const err = axiosError;
+		const err = axiosError as AxiosError;
 		return {
-			error: { status: err.response.status, data: err.response.data },
+			error: { status: err.response?.status, data: err.response?.data },
 		};
 	}
 };
+
 
 export const baseQuery = axiosBaseQuery();

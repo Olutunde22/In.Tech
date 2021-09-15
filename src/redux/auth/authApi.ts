@@ -1,16 +1,17 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '../baseQuery';
+import { Credentials, User } from '../types';
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: baseQuery,
+	baseQuery,
 	endpoints: (builder) => ({
-		login: builder.mutation({
+		login: builder.mutation<User, Credentials>({
 			query: (data) => {
-				return { url: 'auth/email', method: 'POST', data };
+				return { url: 'login', method: 'POST', data };
 			},
 		}),
-		signUp: builder.mutation({
+		signUp: builder.mutation<User, Credentials>({
 			query: (data) => {
 				return { url: 'users', method: 'POST', data };
 			},
