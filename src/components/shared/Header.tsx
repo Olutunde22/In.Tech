@@ -4,7 +4,7 @@ const Header = () => {
 	return (
 		<div className="p-3 flex justify-between">
 			<div>
-				<a href="/" alt="home">
+				<a href="/">
 					<img className="h-10 w-18" src="/images/olutunde.png" alt="logo" />
 				</a>
 			</div>
@@ -12,7 +12,7 @@ const Header = () => {
 			<div className="flex">
 				<a
 					href="/login"
-					className="group mr-3 relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-blue-500 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+					className="group mr-3 relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-blue-500 hover:border-blue-500 focus:outline-none"
 				>
 					Log in
 				</a>

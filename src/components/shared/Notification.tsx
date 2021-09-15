@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { XCircleIcon, CheckCircleIcon, XIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 
-const Notification = ({ type, message, show }) => {
+const Notification = ({ type, message, show }: { type?: string; message?: string; show?: boolean }) => {
 	const [isShown, setIsShown] = useState(show);
 
 	return (

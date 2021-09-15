@@ -3,14 +3,19 @@ import { baseQuery } from './baseQuery';
 
 export const usersApi = createApi({
 	reducerPath: 'usersApi',
-	baseQuery: baseQuery,
+	baseQuery,
 	endpoints: (builder) => ({
 		getUsers: builder.query({
 			query: () => {
 				return { url: 'users', method: 'GET' };
 			},
 		}),
+		getUser: builder.query({
+			query: (id) => {
+				return { url: `users/${id}`, method: 'GET' };
+			},
+		}),
 	}),
 });
 
-export const { useGetUsersQuery } = usersApi;
+export const { useGetUsersQuery, useGetUserQuery } = usersApi;

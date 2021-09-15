@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../shared/Layout';
 import { loginFields } from './formFields';
 import Alert from '../shared/Alert';
 import { useLoginMutation } from '../../redux/auth/authApi';
+import { Asserts } from 'yup/lib/util/types';
+import { AlertType } from '../../redux/types';
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().email('Invalid Email').required('Email is Required'),
 	password: Yup.string().min(6, 'Password is too short').required('Password is Required'),
 });
 
+interface LoginData extends Asserts<typeof LoginSchema> {}
+
 const Login = () => {
 	const [error, setError] = useState('');
 	const [login] = useLoginMutation();
 
-	const handleLogin = async ({ email, password }, { setSubmitting }) => {
+	const handleLogin = async (
+		{ email, password }: LoginData,
+		{ setSubmitting }: FormikHelpers<LoginData>
+	) => {
 		try {
 			setSubmitting(true);
 			await login({
 				email,
 				password,
 			}).unwrap();
-		} catch (err) {
+		} catch (err: any) {
 			setError(err.data.error);
 		}
 	};
 
 	return (
 		<Layout>
-			<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 xl:px-12 sm:px-6 lg:px-8">
 				<div className="max-w-md w-full space-y-8 px-12 bg-white py-8 shadow-lg rounded-xl">
 					<div>
 						<h2 className="mt-6 text-center text-xl sm:text-3xl font-extrabold text-gray-900">
@@ -43,16 +50,18 @@ const Login = () => {
 						</p>
 					</div>
 					<Formik
-						initialValues={{
-							email: '',
-							password: '',
-						}}
+						initialValues={
+							{
+								email: '',
+								password: '',
+							} as LoginData
+						}
 						validationSchema={LoginSchema}
 						onSubmit={handleLogin}
 					>
 						{({ isSubmitting, errors, touched }) => (
 							<Form>
-								{error ? <Alert type="error" message={error} /> : null}
+								{error ? <Alert type={AlertType.ERROR} message={error} /> : null}
 								{loginFields.map((field) => (
 									<div className="my-2" key={field.id}>
 										<label htmlFor={field.name} className="text-gray-500 font-normal">
@@ -61,7 +70,7 @@ const Login = () => {
 										<Field
 											id={field.name}
 											name={field.name}
-											type={field.name}
+											type={field.type}
 											autoComplete={field.name === 'password' ? 'current-password' : field.name}
 											className={`relative block w-full px-3 py-3 border ${
 												errors[field.name] && touched[field.name]

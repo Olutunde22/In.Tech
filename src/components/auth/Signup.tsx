@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../shared/Layout';
 import Alert from '../shared/Alert';
 import { signupFields } from './formFields';
 import { useSignUpMutation } from '../../redux/auth/authApi';
+import { Asserts } from 'yup/lib/util/types';
+import { AlertType } from '../../redux/types';
 
 const SignupSchema = Yup.object().shape({
 	firstname: Yup.string().required('Firstname is Required'),
@@ -17,13 +19,14 @@ const Signup = () => {
 	const [error, setError] = useState('');
 	const [signup] = useSignUpMutation();
 
-	const handleSignup = async (values, { setSubmitting }) => {
+	interface SignUpData extends Asserts<typeof SignupSchema> {}
+	const handleSignup = async (values: SignUpData, { setSubmitting }: FormikHelpers<SignUpData>) => {
 		try {
 			setSubmitting(true);
 			await signup({
 				...values,
 			}).unwrap();
-		} catch (err) {
+		} catch (err: any) {
 			setError(err.data.error);
 		}
 	};
@@ -42,18 +45,20 @@ const Signup = () => {
 						</p>
 					</div>
 					<Formik
-						initialValues={{
-							firstname: '',
-							lastname: '',
-							email: '',
-							password: '',
-						}}
+						initialValues={
+							{
+								firstname: '',
+								lastname: '',
+								email: '',
+								password: '',
+							} as SignUpData
+						}
 						validationSchema={SignupSchema}
 						onSubmit={handleSignup}
 					>
 						{({ isSubmitting, touched, errors }) => (
 							<Form>
-								{error ? <Alert type="error" message={error} /> : null}
+								{error ? <Alert type={AlertType.ERROR} message={error} /> : null}
 
 								{signupFields.map((field) => (
 									<div className="my-2" key={field.id}>
@@ -63,7 +68,7 @@ const Signup = () => {
 										<Field
 											id={field.name}
 											name={field.name}
-											type={field.name}
+											type={field.type}
 											autoComplete={field.name === 'password' ? 'current-password' : field.name}
 											className={`relative block w-full px-3 py-3 border ${
 												errors[field.name] && touched[field.name]
