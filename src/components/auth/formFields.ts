@@ -2,13 +2,13 @@ export const signupFields = [
     {
         id : 1,
         label: 'Firstname',
-        name: 'firstname',
+        name: 'firstName',
         type: 'text'
     },
     {
         id : 2,
         label: 'Lastname',
-        name: 'lastname',
+        name: 'lastName',
         type: 'text'
     },
     {
