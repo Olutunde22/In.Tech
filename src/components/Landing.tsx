@@ -5,10 +5,10 @@ import Typewriter from 'typewriter-effect';
 const Landing = () => {
 	return (
 		<Layout>
-			<div className="container">
-				<div className="flex flex-col md:flex-row mt-20">
-					<div className="p-8 md:w-7/12 lg-8/12 w-full flex justify-center content-center">
-						<h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-center xl:pt-10 xl:pl-14 md:text-left font-semibold text-gray-500">
+			<div className="">
+				<div className="flex flex-col md:flex-row mt-10">
+					<div className="p-8 lg:pl-20 md:w-7/12 lg:w-8/12 w-full flex flex-col justify-center content-center">
+						<h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl mb-10 text-center md:text-left font-semibold text-gray-500">
 							<Typewriter
 								onInit={(typewriter) => {
 									typewriter
@@ -20,9 +20,19 @@ const Landing = () => {
 								}}
 							/>
 						</h2>
+						<p className="uppercase font-medium text-gray-600 text-lg text-center md:text-left tracking-wide">
+							Our tagline goes here
+						</p>
+						<p className="uppercase font-medium text-gray-600 text-lg text-center md:text-left tracking-wide">
+							Our motto goes here{' '}
+						</p>
 					</div>
-					<div className="md:w-5/12 lg:4/12 w-full">
-						<img className="w-90 mx-auto" src="https://media.istockphoto.com/vectors/shopping-people-vector-id1175445207?k=20&m=1175445207&s=612x612&w=0&h=-5SvY2wGisIvE6h8ZT4nCvr9zlyhuZosWKy4eUhWBsk=" alt="shopingImage" />
+					<div className="md:w-5/12 lg:w-8/12 w-ful place-items-stretch">
+						<img
+							className="w-90 lg:w-full "
+							src="https://cdni.iconscout.com/illustration/premium/thumb/family-doing-shopping-2681393-2239882.png"
+							alt="shopingImage"
+						/>
 					</div>
 				</div>
 			</div>
