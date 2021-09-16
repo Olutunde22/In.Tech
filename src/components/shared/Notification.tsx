@@ -1,9 +1,17 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { XCircleIcon, CheckCircleIcon, XIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
+import { AlertMessage, AlertType } from '../types';
 
-const Notification = ({ type, message, show }: { type?: string; message?: string; show?: boolean }) => {
-	const [isShown, setIsShown] = useState(show);
+const Notification = ({ type, message }: AlertMessage) => {
+	const [isShown, setIsShown] = useState(true);
+
+	useEffect(() => {
+		setIsShown(true);
+		setTimeout(() => {
+			setIsShown(false);
+		}, 5000);
+	}, []);
 
 	return (
 		<>
@@ -20,10 +28,10 @@ const Notification = ({ type, message, show }: { type?: string; message?: string
 				<div className="p-6 max-w-sm mx-auto absolute z-10 right-10 top-20 bg-white rounded-xl shadow-md flex items-center space-x-4">
 					<div
 						className={`${
-							type === 'error' ? 'text-red-700' : 'text-green-700'
+							type === AlertType.ERROR ? 'text-red-700' : 'text-green-700'
 						} rounded pr-2 mt-0.5 overflow-hidden focus:outline-none`}
 					>
-						{type === 'error' ? (
+						{type === AlertType.ERROR ? (
 							<XCircleIcon className="h-4 w-4 my-auto" />
 						) : (
 							<CheckCircleIcon className="h-4 w-4 my-auto" />

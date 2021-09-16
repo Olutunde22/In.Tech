@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Home, Login, Signup } from './routes';
+import { Home, Login, Signup, Landing } from './routes';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -20,9 +20,10 @@ function App() {
 				}
 			>
 				<Switch>
-					<Route path="/" exact={true} component={Home} />
+					<Route path="/" exact={true} component={Landing} />
 					<Route path="/login" exact={true} component={Login} />
 					<Route path="/signup" exact={true} component={Signup} />
+					<Route path="/home" exact={true} component={Home} />
 				</Switch>
 			</Suspense>
 		</Router>

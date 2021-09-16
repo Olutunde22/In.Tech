@@ -1,6 +1,6 @@
 import React from 'react';
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/solid';
-import { AlertMessage, AlertType } from '../../redux/types';
+import { AlertMessage, AlertType } from '../types';
 
 const Alert = ({ type, message }: AlertMessage) => {
 	return (

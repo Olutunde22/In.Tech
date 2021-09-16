@@ -2,41 +2,61 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../shared/Layout';
-import Alert from '../shared/Alert';
 import { signupFields } from './formFields';
+import Alert from '../shared/Alert';
 import { useSignUpMutation } from '../../redux/auth/authApi';
 import { Asserts } from 'yup/lib/util/types';
-import { AlertType } from '../../redux/types';
+import { AlertType } from '../types';
+import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
+import { setUserId, currentUserId } from '../../redux/auth/authSlice';
+import { Redirect, useLocation } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
-	firstname: Yup.string().required('Firstname is Required'),
-	lastname: Yup.string().required('Lastname is Required'),
+	firstName: Yup.string().required('Firstname is required'),
+	lastName: Yup.string().required('Lastname is required'),
 	email: Yup.string().email('Invalid Email').required('Email is Required'),
 	password: Yup.string().min(6, 'Password is too short').required('Password is Required'),
 });
 
+interface SignupData extends Asserts<typeof SignupSchema> {}
+
 const Signup = () => {
+	const dispatch = useAppDispatch();
+	const userId = useAppSelector(currentUserId);
 	const [error, setError] = useState('');
 	const [signup] = useSignUpMutation();
+	const location = useLocation();
 
-	interface SignUpData extends Asserts<typeof SignupSchema> {}
-	const handleSignup = async (values: SignUpData, { setSubmitting }: FormikHelpers<SignUpData>) => {
+	const handleSignup = async (
+		{ email, password, firstName, lastName }: SignupData,
+		{ setSubmitting }: FormikHelpers<SignupData>
+	) => {
 		try {
 			setSubmitting(true);
-			await signup({
-				...values,
+			const user = await signup({
+				firstName,
+				lastName,
+				email,
+				password,
 			}).unwrap();
+			dispatch(setUserId(user.id));
 		} catch (err: any) {
-			setError(err.data.error);
+			setError(err.data);
 		}
 	};
 
+	if (userId) {
+		return <Redirect to={`${location.state}` || '/'} />;
+	}
+
 	return (
 		<Layout>
-			<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 xl:px-12 sm:px-6 lg:px-8">
 				<div className="max-w-md w-full space-y-8 px-12 bg-white py-8 shadow-lg rounded-xl">
 					<div>
-						<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
+						<h2 className="mt-6 text-center text-xl sm:text-3xl font-extrabold text-gray-900">
+							Sign up
+						</h2>
 						<p className="mt-2 text-center text-sm text-gray-600">
 							Or{' '}
 							<a href="/login" className="font-medium text-blue-600 hover:text-blue-500">
@@ -47,19 +67,18 @@ const Signup = () => {
 					<Formik
 						initialValues={
 							{
-								firstname: '',
-								lastname: '',
+								firstName: '',
+								lastName: '',
 								email: '',
 								password: '',
-							} as SignUpData
+							} as SignupData
 						}
 						validationSchema={SignupSchema}
 						onSubmit={handleSignup}
 					>
-						{({ isSubmitting, touched, errors }) => (
+						{({ isSubmitting, errors, touched }) => (
 							<Form>
 								{error ? <Alert type={AlertType.ERROR} message={error} /> : null}
-
 								{signupFields.map((field) => (
 									<div className="my-2" key={field.id}>
 										<label htmlFor={field.name} className="text-gray-500 font-normal">
@@ -74,14 +93,13 @@ const Signup = () => {
 												errors[field.name] && touched[field.name]
 													? 'border-red-300 placeholder-red-500 focus:ring-red-500 focus:border-red-500'
 													: 'border-gray-300 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500'
-											} text-gray-900 rounded-lg focus:outline-none focus:z-10 sm:text-sm shadow-sm`}
+											} text-gray-900 rounded-lg focus:outline-none  focus:z-10 sm:text-sm shadow-sm`}
 											placeholder={field.label}
 										/>
-										<ErrorMessage className="text-red-500" component="div" name={field.name} />
+										<ErrorMessage className="text-red-500 my-2" component="div" name={field.name} />
 									</div>
 								))}
-
-								<div className="my-2">
+								<div className="mt-2">
 									<button
 										type="submit"
 										className="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

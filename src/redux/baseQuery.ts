@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-const baseUrl = 'https://reqs.in/api/';
+const baseUrl = 'https://olutunde-ecommerce.herokuapp.com/api/';
 
 const axiosBaseQuery = () => async (req: AxiosRequestConfig) => {
 	try {
@@ -9,6 +9,7 @@ const axiosBaseQuery = () => async (req: AxiosRequestConfig) => {
 			headers: {
 				XMLHttpRequest,
 				ContentType: 'application/json',
+				
 			},
 		});
 		return { data: result.data };

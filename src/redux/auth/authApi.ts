@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '../baseQuery';
-import { Credentials, User } from '../types';
+import { Credentials, User } from '../../components/types';
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
