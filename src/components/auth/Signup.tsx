@@ -9,7 +9,7 @@ import { Asserts } from 'yup/lib/util/types';
 import { AlertType } from '../types';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { setUserId, currentUserId } from '../../redux/auth/authSlice';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
 	firstName: Yup.string().required('Firstname is required'),
@@ -25,7 +25,6 @@ const Signup = () => {
 	const userId = useAppSelector(currentUserId);
 	const [error, setError] = useState('');
 	const [signup] = useSignUpMutation();
-	const location = useLocation();
 
 	const handleSignup = async (
 		{ email, password, firstName, lastName }: SignupData,
@@ -39,14 +38,14 @@ const Signup = () => {
 				email,
 				password,
 			}).unwrap();
-			dispatch(setUserId(user.id));
+			dispatch(setUserId(user._id));
 		} catch (err: any) {
 			setError(err.data);
 		}
 	};
 
 	if (userId) {
-		return <Redirect to={`${location.state}` || '/'} />;
+		return <Redirect to='/' />;
 	}
 
 	return (

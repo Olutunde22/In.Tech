@@ -6,18 +6,25 @@ export interface Credentials {
 }
 
 export interface User {
-    id : string;
-    firstname: string;
-    lastname: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    password: string;
+    salt: string;
+    verificationToken: string;
+    imageUrl: string;
+    createdAt: number;
+    updatedAt: number;
+    __V: number;
 }
 
-export enum AlertType{
-    ERROR ="error",
-    SUCCESS="success"
+export enum AlertType {
+    ERROR = "error",
+    SUCCESS = "success"
 }
 
-export interface AlertMessage{
-    type : AlertType;
+export interface AlertMessage {
+    type: AlertType;
     message: string
 }

@@ -7,7 +7,7 @@ const Landing = () => {
 		<Layout>
 			<div className="">
 				<div className="flex flex-col md:flex-row mt-10">
-					<div className="p-8 lg:pl-20 md:w-7/12 lg:w-8/12 w-full flex flex-col justify-center content-center">
+					<div className="p-8 lg:pl-28 md:w-7/12 lg:w-8/12 w-full flex flex-col justify-center content-center">
 						<h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl mb-10 text-center md:text-left font-semibold text-gray-500">
 							<Typewriter
 								onInit={(typewriter) => {

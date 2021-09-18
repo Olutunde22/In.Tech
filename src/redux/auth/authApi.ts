@@ -10,13 +10,20 @@ export const authApi = createApi({
 			query: (data) => {
 				return { url: 'login', method: 'POST', data };
 			},
+			
 		}),
 		signUp: builder.mutation<User, Credentials>({
 			query: (data) => {
 				return { url: 'users', method: 'POST', data };
 			},
 		}),
+		getUser: builder.query({
+			query: (id) => {
+				console.log(id)
+				return { url: `users/${id}`, method: 'GET' };
+			},
+		}),
 	}),
 });
 
-export const { useLoginMutation, useSignUpMutation } = authApi;
+export const { useLoginMutation, useSignUpMutation , useGetUserQuery} = authApi;
