@@ -21,10 +21,7 @@ const Landing = () => {
 							/>
 						</h2>
 						<p className="uppercase font-medium text-gray-600 text-lg text-center md:text-left tracking-wide">
-							Our tagline goes here
-						</p>
-						<p className="uppercase font-medium text-gray-600 text-lg text-center md:text-left tracking-wide">
-							Our motto goes here{' '}
+							Let us handle it.{' '}
 						</p>
 					</div>
 					<div className="md:w-5/12 lg:w-8/12 w-ful place-items-stretch">
