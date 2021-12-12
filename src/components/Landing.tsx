@@ -12,22 +12,22 @@ const Landing = () => {
 							<Typewriter
 								onInit={(typewriter) => {
 									typewriter
-										.typeString('Welcome to Olutunde.')
+										.typeString('Welcome to In.Tech')
 										.pauseFor(2000)
 										.deleteAll()
-										.typeString('Your comfort is our Priority!!')
+										.typeString('Quality Service At Affordable Rates.')
 										.start();
 								}}
 							/>
 						</h2>
 						<p className="uppercase font-medium text-gray-600 text-lg text-center md:text-left tracking-wide">
-							Let us handle it.{' '}
+							Solving all computer related problems{' '}
 						</p>
 					</div>
-					<div className="md:w-5/12 lg:w-8/12 w-ful place-items-stretch">
+					<div className="md:w-5/12 lg:w-8/12 w-ful place-items-stretch md:mr-10">
 						<img
 							className="w-90 lg:w-full "
-							src="https://cdni.iconscout.com/illustration/premium/thumb/family-doing-shopping-2681393-2239882.png"
+							src="https://elements-cover-images-0.imgix.net/790945c8-90f0-4ac9-b551-06fa26d4f597?auto=compress%2Cformat&fit=max&w=1170&s=416d544ceb7bab026f982e86952f31ad"
 							alt="shopingImage"
 						/>
 					</div>
