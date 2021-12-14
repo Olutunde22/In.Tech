@@ -15,7 +15,7 @@ const Header = () => {
   const { data: user } = useGetUserQuery(userId);
 
   return (
-    <div className="flex justify-between shadow">
+    <div className="flex fixed z-10 bg-white top-0 left-0 right-0 justify-between shadow">
       <a href="/">
         <img className="sm:ml-20 h-20 w-18" src="/images/logo.png" alt="logo" />
       </a>
