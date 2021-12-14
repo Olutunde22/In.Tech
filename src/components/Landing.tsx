@@ -8,7 +8,7 @@ const Landing = () => {
   return (
     <Layout>
       <div className="">
-        <div className="flex flex-col md:flex-row mt-10 h-screen">
+        <div className="flex flex-col md:flex-row mt-10 h-screen py-20">
           <div className="p-8 lg:pl-28 md:w-7/12 lg:w-8/12 w-full flex flex-col lg:mt-24">
             <h2 className="leading-loose text-3xl md:text-5xl lg:text-6xl xl:text-7xl mb-10 text-center md:text-left font-semibold text-gray-400">
               <Typewriter
@@ -36,13 +36,13 @@ const Landing = () => {
         </div>
         <div className="flex justify-center ">
           <Fade direction="left" triggerOnce>
-            <h2 className="text-5xl">Our Services</h2>
+            <h2 className="text-5xl mb-20">Our Services</h2>
           </Fade>
         </div>
 
-        <div className="flex flex-col px-4 py-4 md:flex-row md:grid md:grid-cols-3 md:gap-4 lg:pl-28">
+        <div className="flex flex-col px-4 md:px-16 py-4 lg:flex-row lg:grid lg:grid-cols-3 lg:gap-4 lg:pl-28">
           <Fade direction="up" cascade>
-            <div className="max-w-sm rounded overflow-hidden rounded-lg shadow-lg px-2 py-4">
+            <div className="max-w-sm rounded overflow-hidden rounded-lg mb-4 shadow-lg px-2 py-4">
               <div className="px-6 py-4">
                 <SpeakerphoneIcon className="w-16 h-24 mr-2 text-blue-400" />
                 <div className=" font-light text-gray-900 text-xl mb-2">
