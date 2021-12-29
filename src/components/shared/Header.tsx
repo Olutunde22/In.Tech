@@ -25,16 +25,16 @@ const Header = () => {
         ) : (
           <>
             <a
-              href="/login"
+              href="/about-us"
               className="my-auto mr-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-500 hover:border-gray-500 focus:outline-none"
             >
-              Log in
+              About
             </a>
             <a
-              href="/signup"
-              className="my-auto py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500"
+              href="/contact"
+              className="my-auto mr-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-500 hover:border-gray-500 focus:outline-none"
             >
-              Sign up
+              Contact
             </a>
           </>
         )}

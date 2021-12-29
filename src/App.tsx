@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Home, Login, Signup, Landing } from './routes';
+import { Home, Login, Signup, Landing, Contact, AboutUs } from './routes';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -24,6 +24,8 @@ function App() {
 					<Route path="/login" exact={true} component={Login} />
 					<Route path="/signup" exact={true} component={Signup} />
 					<Route path="/home" exact={true} component={Home} />
+					<Route path="/about-us" exact={true} component={AboutUs} />
+					<Route path="/contact" exact={true} component={Contact} />
 				</Switch>
 			</Suspense>
 		</Router>
